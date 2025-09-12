@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import requests
 
 
@@ -23,6 +25,19 @@ def get_user(id: str) -> dict:
 
 def get_user_names(ids: list[str]) -> list[str]:
     return [get_user(id)["name"] for id in ids]
+
+
+# ======================================
+# 例外テスト
+# ======================================
+
+
+def write_note(file, note):
+    """ファイルへの書き込みを行う関数"""
+    if not Path(file).exists():
+        raise FileNotFoundError(f"{file}が存在しません")
+    with open(file, "a") as f:
+        f.write(note)
 
 
 if __name__ == "__main__":
